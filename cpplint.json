@@ -1,0 +1,7 @@
+[
+	{"project_name":"samples"},
+	{"name":"--verbose","attr":"1","desc":"Set minimum risk level(0-5)"},
+	{"name":"--output","attr":"vs7"},
+	{"name":"--counting","attr":"detailed"},
+	{"name":"srcpath","attr":"./samples"}
+]
