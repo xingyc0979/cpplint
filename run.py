@@ -36,7 +36,6 @@ def cpplint():
     json_file_path = root + "cpplint_overviews.json"
     project_name = ''
     paras = ''
-    root_dir = ''
     with open(config_json, 'r') as json_file:
         configure = json.load(json_file)
         flag = True
@@ -51,9 +50,6 @@ def cpplint():
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
                 if val["name"] == "--counting" and val["attr"] in counting_list:
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
-                if val["name"] == "srcpath":
-                    root_dir = val["attr"]
-    #checkfiles(root_dir)
     paths = get_file(root, [])
     print("==========begin of cpplint check==========")
     print("The number of files:", len(paths))

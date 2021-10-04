@@ -6,6 +6,8 @@ sed -i '/^Total/a\\n' ./cpplint.txt
 cp ./cpplint.txt ./cpplint/
 zip -r cpplint_details.zip ./cpplint
 cp ./cpplint_details.zip /home/test/
+sed -i "/Ignor/d" ./cpplint.txt
+sed -i "/Done/d" ./cpplint.txt
 head -n 10 ./cpplint.txt > tmp.txt
 cat tmp.txt > cpplint.txt
 sed -i "s/\/home\/test\///" ./cpplint.txt
