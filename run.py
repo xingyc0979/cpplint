@@ -2,13 +2,14 @@
 
 import os, json
 
+
 def checkfiles(root_path):
     valid_file = ['cuh', 'hh', 'cxx', 'cpp', 'c', 'h++', 'cu', 'hpp', 'hxx', 'c++', 'cc', 'h']
     files = os.listdir(root_path)
     for file in files:
         if not os.path.isdir(root_path + '/' + file):  # not a dir
             str = os.path.splitext(file)[-1][1:]
-            if str not in valid_file:
+            if str not in valid_file and str != 'json':
                 print(root_path, file + 'is not valid')
                 os.remove(root_path + '/' + file)
                 print('Delete' + root_path + '/' + file)
@@ -31,7 +32,7 @@ def cpplint():
     level_list = ['1', '2', '3', '4', '5']
     counting_list = ['total', 'toplevel', 'detailed']
     root = '/home/test/'
-    config_json = './cpplint.json'
+    config_json = root + "cpplint.json"
     json_file_path = root + "cpplint_overviews.json"
     project_name = ''
     paras = ''
@@ -50,9 +51,10 @@ def cpplint():
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
                 if val["name"] == "--counting" and val["attr"] in counting_list:
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
-                if val["name"] == "srcpath":                    root_dir = val["attr"]
-    checkfiles(root_dir)
-    paths = get_file(root_dir, [])
+                if val["name"] == "srcpath":
+                    root_dir = val["attr"]
+    #checkfiles(root_dir)
+    paths = get_file(root, [])
     print("==========begin of cpplint check==========")
     print("The number of files:", len(paths))
     for path in paths:
@@ -67,7 +69,7 @@ def cpplint():
         data = json.load(json_file)
         data['project'] = {"project_name": project_name, "tool_name": "cpplint"}
     with open(json_file_path, 'w') as json_file:
-        json_file.write(json.dumps(data,indent=2))
+        json_file.write(json.dumps(data, indent=2))
 
 
 if __name__ == '__main__':

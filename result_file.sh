@@ -8,6 +8,7 @@ zip -r cpplint_details.zip ./cpplint
 cp ./cpplint_details.zip /home/test/
 head -n 10 ./cpplint.txt > tmp.txt
 cat tmp.txt > cpplint.txt
+sed -i "s/\/home\/test\///" ./cpplint.txt
 sed -i 's/:/#/g' ./cpplint.txt
 sed -i 's/)/):/' ./cpplint.txt
 sed -i 's/"//g' ./cpplint.txt

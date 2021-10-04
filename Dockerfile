@@ -9,6 +9,4 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe m
 
 COPY ./run.py /root
 COPY ./result_file.sh /root
-COPY ./cpplint.json /root
-COPY . .
 CMD ["python3", "run.py"]
