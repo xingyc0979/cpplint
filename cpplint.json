@@ -1,0 +1,5 @@
+[
+	{"name":"--verbose","attr":"1","desc":"Set minimum risk level(0-5)"},
+	{"name":"--output","attr":"vs7","desc":"vs7 default"},
+	{"name":"--counting","attr":"detailed","desc":"Set model of outputing the total number of errors"}
+]
