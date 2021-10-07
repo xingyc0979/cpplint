@@ -47,9 +47,75 @@ def get_file(root_path, all_files):
 
 
 def cpplint():
-    output_list = ['vs7', 'emacs']
+    output_list=['vs7','emacs']
     level_list = ['1', '2', '3', '4', '5']
     counting_list = ['total', 'toplevel', 'detailed']
+    _ERROR_CATEGORIES = [
+        'build/class',
+        'build/c++11',
+        'build/deprecated',
+        'build/endif_comment',
+        'build/explicit_make_pair',
+        'build/forward_decl',
+        'build/header_guard',
+        'build/include',
+        'build/include_alpha',
+        'build/include_order',
+        'build/include_what_you_use',
+        'build/namespaces',
+        'build/printf_format',
+        'build/storage_class',
+        'legal/copyright',
+        'readability/alt_tokens',
+        'readability/braces',
+        'readability/casting',
+        'readability/check',
+        'readability/constructors',
+        'readability/fn_size',
+        'readability/function',
+        'readability/inheritance',
+        'readability/multiline_comment',
+        'readability/multiline_string',
+        'readability/namespace',
+        'readability/nolint',
+        'readability/nul',
+        'readability/strings',
+        'readability/todo',
+        'readability/utf8',
+        'runtime/arrays',
+        'runtime/casting',
+        'runtime/explicit',
+        'runtime/int',
+        'runtime/init',
+        'runtime/invalid_increment',
+        'runtime/member_string_references',
+        'runtime/memset',
+        'runtime/indentation_namespace',
+        'runtime/operator',
+        'runtime/printf',
+        'runtime/printf_format',
+        'runtime/references',
+        'runtime/string',
+        'runtime/threadsafe_fn',
+        'runtime/vlog',
+        'whitespace/blank_line',
+        'whitespace/braces',
+        'whitespace/comma',
+        'whitespace/comments',
+        'whitespace/empty_conditional_body',
+        'whitespace/empty_loop_body',
+        'whitespace/end_of_line',
+        'whitespace/ending_newline',
+        'whitespace/forcolon',
+        'whitespace/indent',
+        'whitespace/line_length',
+        'whitespace/newline',
+        'whitespace/operators',
+        'whitespace/parens',
+        'whitespace/semicolon',
+        'whitespace/tab',
+        'whitespace/todo',
+    ]
     root = '/home/test/'
     config_json = root + "cpplint.json"
     json_file_path = root + "cpplint_overviews.json"
@@ -65,10 +131,17 @@ def cpplint():
             else:
                 if val["name"] == "--verbose" and val["attr"] in level_list:
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
-                if val["name"] == "--output" and val["attr"] in output_list:
+                if val["name"] == "--linelength":
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
                 if val["name"] == "--counting" and val["attr"] in counting_list:
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
+                if val["name"] == "--output" and val["attr"] in output_list:
+                    paras = paras + val["name"] + "=" + val["attr"] + ' '
+                '''if val["name"] == "--headers":
+                    paras = paras + val["name"] + "=" + val["attr"] + ' '
+                if val["name"] == "--filter":
+                    paras = paras + val["name"] + "=" + val["attr"] + ' ' '''
+
     paths = get_file(root, [])
     print("==========begin of cpplint check==========")
     print("The number of files:", len(paths))
