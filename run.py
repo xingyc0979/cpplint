@@ -2,25 +2,27 @@
 
 import os, json
 
-def transfer_toJson(path,output_path):
-    result=dict()
-    data=[]
+
+def transfer_toJson(path, output_path):
+    result = dict()
+    data = []
     with open(path) as file:
         for line in file:
             tmp = dict()
-            if line=='\n':
+            if line == '\n':
                 break
-            elif line[0]=='/':
-                line=line.strip('\n')
-                tmp['file_name']=line.split('(')[0].replace('/home/test/','')
-                tmp['start']=line.split('(')[1].split(')')[0]
-                tmp['type']=line.split('[')[1].split(']')[0]
+            elif line[0] == '/':
+                line = line.strip('\n')
+                tmp['file_name'] = line.split('(')[0].replace('/home/test/', '')
+                tmp['start'] = line.split('(')[1].split(')')[0]
+                tmp['type'] = line.split('[')[1].split(']')[0]
                 tmp['desc'] = line.split('[')[1].split(']')[1].strip('\t')
                 tmp['level'] = line.split('[')[-1].split(']')[0].strip('\t')
                 data.append(tmp)
-    result['error']=data
+    result['error'] = data
     with open(output_path, 'w') as json_file:
         json_file.write(json.dumps(result, indent=2))
+
 
 def checkfiles(root_path):
     valid_file = ['cuh', 'hh', 'cxx', 'cpp', 'c', 'h++', 'cu', 'hpp', 'hxx', 'c++', 'cc', 'h']
@@ -47,7 +49,7 @@ def get_file(root_path, all_files):
 
 
 def cpplint():
-    output_list=['vs7','emacs']
+    output_list = ['vs7', 'emacs']
     level_list = ['1', '2', '3', '4', '5']
     counting_list = ['total', 'toplevel', 'detailed']
     _ERROR_CATEGORIES = [
@@ -126,7 +128,7 @@ def cpplint():
         flag = True
         for val in configure:
             if flag:
-                project_name = val["project_name"]
+                # project_name = val["project_name"]
                 flag = False
             else:
                 if val["name"] == "--verbose" and val["attr"] in level_list:
@@ -137,21 +139,22 @@ def cpplint():
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
                 if val["name"] == "--output" and val["attr"] in output_list:
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
-                '''if val["name"] == "--headers":
+                if val["name"] == "--headers" and val["attr"] != ' ':
                     paras = paras + val["name"] + "=" + val["attr"] + ' '
-                if val["name"] == "--filter":
-                    paras = paras + val["name"] + "=" + val["attr"] + ' ' '''
+                if val["name"] == "--filter" and val["attr"] != ' ':
+                    paras = paras + val["name"] + "=" + val["attr"] + ' '
 
     paths = get_file(root, [])
     print("==========begin of cpplint check==========")
     print("The number of files:", len(paths))
+    print(paras)
     for path in paths:
         str = "cpplint %(paras)s %(path)s >> cpplint.txt 2>&1" % {'paras': paras, 'path': path}
         print("===path===", path)
         os.system(str)
-    command='./result_file.sh'
+    command = './result_file.sh'
     os.system(command)
-    transfer_toJson("./cpplint.txt",json_file_path)
+    transfer_toJson("./cpplint.txt", json_file_path)
     print("==========end of cpplint check==========")
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)

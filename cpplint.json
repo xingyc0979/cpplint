@@ -3,6 +3,6 @@
 	{"name":"--output","attr":"vs7","desc":"vs7 default"},
 	{"name":"--linelength","attr":"80","desc":"This is the allowed line length for the project. "},
 	{"name":"--counting","attr":"detailed","desc":"Set the model of outputing the total number of errors,total|toplevel|detailed"},
-	{"name":"--headers","attr":"","desc":"The header extensions that cpplint will treat as .h in checks"},
-	{"name":"--filter","attr":"","desc":"Specify a comma-separated list of category-filters to apply: only error messages whose category names pass the filters will be printed."}
+	{"name":"--headers","attr":" ","desc":"The header extensions that cpplint will treat as .h in checks"},
+	{"name":"--filter","attr":" ","desc":"Specify a comma-separated list of category-filters to apply: only error messages whose category names pass the filters will be printed."}
 ]
